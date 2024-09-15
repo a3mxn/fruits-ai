@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaGoogle, FaTwitter } from 'react-icons/fa';
-import '../Styles/Login.css'; // Import CSS for styling
+import '../Styles/Login.css'; // Updated import for CSS
 
 const Login = () => {
   const [activeTab, setActiveTab] = useState('login');
@@ -22,7 +22,6 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Simulate login
-    // In a real app, this is where you'd validate credentials and handle login
     navigate('/home'); // Redirect to home page after login
   };
 
@@ -62,13 +61,18 @@ const Login = () => {
               placeholder="Password"
               required
             />
+            <div className="auth-forgot-password">
+              <span className="auth-forgot-password-text">
+                Forgot Password?
+              </span>
+            </div>
             <button type="submit">Login</button>
             <div className="auth-social">
               <button className="auth-social-btn google">
-                <FaGoogle /> Sign in with Google
+                <FaGoogle />
               </button>
               <button className="auth-social-btn twitter">
-                <FaTwitter /> Sign in with Twitter
+                <FaTwitter />
               </button>
             </div>
           </form>
@@ -102,10 +106,10 @@ const Login = () => {
             <button type="submit">Register</button>
             <div className="auth-social">
               <button className="auth-social-btn google">
-                <FaGoogle /> Sign up with Google
+                <FaGoogle />
               </button>
               <button className="auth-social-btn twitter">
-                <FaTwitter /> Sign up with Twitter
+                <FaTwitter />
               </button>
             </div>
           </form>
