@@ -1,8 +1,0 @@
-fastapi
-uvicorn
-pymongo
-dnspython  # For MongoDB connections using SRV
-bson
-pydantic
-axios
-fastapi-cors
