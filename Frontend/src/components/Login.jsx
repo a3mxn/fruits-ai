@@ -1,13 +1,29 @@
 // src/components/Login.jsx
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FaGoogle, FaTwitter } from 'react-icons/fa';
 import '../Styles/Login.css'; // Import CSS for styling
 
 const Login = () => {
   const [activeTab, setActiveTab] = useState('login');
+  const [formData, setFormData] = useState({ email: '', password: '', name: '' });
+  const navigate = useNavigate(); // Hook for programmatic navigation
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
+    setFormData({ email: '', password: '', name: '' });
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Simulate login
+    // In a real app, this is where you'd validate credentials and handle login
+    navigate('/home'); // Redirect to home page after login
   };
 
   return (
@@ -28,10 +44,24 @@ const Login = () => {
       </div>
       <div className="auth-form">
         {activeTab === 'login' ? (
-          <form>
+          <form onSubmit={handleSubmit}>
             <h2>Login</h2>
-            <input type="email" placeholder="Email" required />
-            <input type="password" placeholder="Password" required />
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleInputChange}
+              placeholder="Email"
+              required
+            />
+            <input
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleInputChange}
+              placeholder="Password"
+              required
+            />
             <button type="submit">Login</button>
             <div className="auth-social">
               <button className="auth-social-btn google">
@@ -43,11 +73,32 @@ const Login = () => {
             </div>
           </form>
         ) : (
-          <form>
+          <form onSubmit={handleSubmit}>
             <h2>Register</h2>
-            <input type="text" placeholder="Name" required />
-            <input type="email" placeholder="Email" required />
-            <input type="password" placeholder="Password" required />
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleInputChange}
+              placeholder="Name"
+              required
+            />
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleInputChange}
+              placeholder="Email"
+              required
+            />
+            <input
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleInputChange}
+              placeholder="Password"
+              required
+            />
             <button type="submit">Register</button>
             <div className="auth-social">
               <button className="auth-social-btn google">
