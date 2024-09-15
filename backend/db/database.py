@@ -1,7 +1,7 @@
 import os
 from pymongo import MongoClient
 
-MONGO_URL = os.getenv('MONGO_URL', 'mongodb+srv://ns362038:wbNp4WJJmWEJXuQ@cluster.gotpp.mongodb.net/')  # Set from environment variable
+MONGO_URL = os.getenv('MONGO_URL', 'mongodb+srv://thakuronzaman2003:GQhAM182cb3koWPE@clusterforfaq.8tf2a.mongodb.net/')  # Set from environment variable
 client = MongoClient(MONGO_URL)
 
 db = client['FruitAi']  # Your database
