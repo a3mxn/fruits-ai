@@ -1,64 +1,39 @@
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Landing from "./components/Landing";
+import { RouterProvider, createBrowserRouter, Route, createRoutesFromElements } from "react-router-dom";
 import Layout from "./layout/Layout";
+import NotFound from "./layout/NotFound";
+import Landing from "./components/Landing";
 import Login from "./components/Login";
 import Home from "./components/Home";
 import About from "./components/About";
 import ChatBot from "./components/ChatBot";
 import Faq from "./components/Faq";
 import Translator from "./components/Translator";
-import NotFound from "./layout/NotFound";
+// import Redirect from "./components/Redirect"; // If you have a Redirect component
 
+// Define routes using createRoutesFromElements for better modularity
+const routes = createRoutesFromElements(
+  <>
+    {/* <Route path="/" element={<Redirect to="/home" />} /> */}
+    <Route path="/" element={<Home  />} />
+    {/* <Route path="/home" element={<Home />} /> */}
+    <Route path="/about" element={<About />} />
+    <Route path="/chat" element={<ChatBot />} />
+    <Route path="/faqs" element={<Faq />} />
+    <Route path="/translate" element={<Translator />} />
+    <Route path="/login" element={<Login />} />
+    <Route path="*" element={<NotFound />} />
+  </>
+);
 
-// Nirbhay singh
-// Author Nirbhay Singh
+const router = createBrowserRouter([
+  {
+    element: <Layout />, // Layout component wraps all routes
+    children: routes,
+  },
+]);
 
 function App() {
-  const router = createBrowserRouter([
-    {
-      element: <Layout />,
-      children: [
-        {
-          path: "/",
-          element: <Landing />,
-        },
-        {
-          path: "/login",
-          element: <Login/>,
-        },
-        {
-          path: "/home",
-          element:<Home/> ,
-        },
-        {
-          path: "/about",
-          element:<About/> ,
-        },
-        {
-          path: "/chat",
-          element:<ChatBot/> ,
-        },
-        {
-          path: "/faqs",
-          element:<Faq/>,
-        },
-        {
-          path: "/translate",
-          element:<Translator/>,
-        },
-        {
-         path:"/*" ,
-         element:<NotFound/> 
-        },
-      ],
-    },
-  ]);
-
-  return (
-    <>
-      <RouterProvider router={router} />
-    </>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;

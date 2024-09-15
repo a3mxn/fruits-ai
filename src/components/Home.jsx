@@ -1,5 +1,4 @@
-// Nirbhay singh
-// Author Nirbhay Singh
+
 import "../Styles/Home.css";
 const Home = () => {
   return (

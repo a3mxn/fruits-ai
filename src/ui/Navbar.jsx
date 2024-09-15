@@ -1,33 +1,19 @@
-import {
-  SignInButton,
-  SignUpButton,
-  UserButton,
-  useUser,
-} from "@clerk/clerk-react";
-import "../Styles/Navbar.css";
+// src/components/Navbar.jsx
+import { Link } from 'react-router-dom';
+import '../Styles/Navbar.css'; // Import the CSS file for styling
 
 const Navbar = () => {
-  const { isSignedIn } = useUser();
-
   return (
     <nav className="navbar">
-      <a href="/" className="logo-link">
-        <div className="logo">FruitAI</div>
-      </a>
-      <div className="nav-links">
-        {isSignedIn ? (
-          // Show the UserButton which handles user settings, logout, etc.
-          <UserButton />
-        ) : (
-          <>
-            <SignInButton mode="modal">
-              <button className="login-btn">Login</button>
-            </SignInButton>
-            <SignUpButton mode="modal">
-              <button className="signup-btn">Sign Up</button>
-            </SignUpButton>
-          </>
-        )}
+      <div className="navbar-brand">
+        <Link to="/" className="navbar-logo">
+          Fruits AI
+        </Link>
+      </div>
+      <div className="navbar-actions">
+        <Link to="/login" className="navbar-login-button">
+          Login
+        </Link>
       </div>
     </nav>
   );

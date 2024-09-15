@@ -39,7 +39,7 @@ const Translator = () => {
   return (
     <div className="translator-container">
       <div className="phone-frame">
-        <h1>Fruit Translator</h1>
+        <h2>Fruit Translator</h2>
 
         <input
           type="text"

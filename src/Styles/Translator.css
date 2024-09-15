@@ -21,15 +21,16 @@ html {
 /* Phone Shape */
 .phone-frame {
     background-color: white;
-    width: 350px;
-    height: 700px;
+    width: 90%; /* Adjust width to fit better on mobile */
+    max-width: 350px; /* Ensure it doesn't exceed a certain width */
+    height: auto; /* Allow height to adjust based on content */
     border-radius: 40px;
     padding: 2rem;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
     position: relative;
 }
 
@@ -42,7 +43,7 @@ html {
     background-color: #ddd;
     border-radius: 10px;
     position: absolute;
-    top: 10px;
+    top: 15px;
     left: 50%;
     transform: translateX(-50%);
 }
@@ -55,16 +56,18 @@ html {
     border-radius: 8px;
     border: 1px solid #ddd;
     font-size: 1rem;
+    box-sizing: border-box; /* Ensure padding is included in the width */
 }
 
 /* Language selector dropdown */
 .language-select {
     margin-bottom: 1rem;
-    padding: 0.5rem;
+    padding: 0.75rem;
     width: 100%;
     border-radius: 8px;
     border: 1px solid #ddd;
     font-size: 1rem;
+    box-sizing: border-box; /* Ensure padding is included in the width */
 }
 
 /* Translate button */
@@ -77,6 +80,7 @@ html {
     cursor: pointer;
     width: 100%;
     font-size: 1rem;
+    box-sizing: border-box; /* Ensure padding is included in the width */
 }
 
 .translate-button:hover {
@@ -92,6 +96,7 @@ html {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     width: 100%;
     text-align: center;
+    box-sizing: border-box; /* Ensure padding is included in the width */
 }
 
 /* Mobile Responsiveness */
@@ -99,17 +104,17 @@ html {
     .phone-frame {
         width: 90%;
         height: auto;
-        padding: 3.5rem;
-    }
-
-    h1 {
-        font-size: 1.5rem;
-        padding: 19px;
+        padding: 1rem;
     }
 
     .translate-button,
     .language-select,
     .translator-input {
         padding: 0.5rem;
+        font-size: 0.9rem; /* Slightly reduce font size for better fit */
+    }
+
+    .translation-result {
+        padding: 0.75rem; /* Adjust padding for better fit on small screens */
     }
 }

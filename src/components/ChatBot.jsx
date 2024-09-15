@@ -1,79 +1,63 @@
-import { useState } from "react";
-import axios from "axios";
-import "../Styles/ChatBot.css"
+import React, { useState } from 'react';
+import '../Styles/ChatBot.css';
 
-const Chat = () => {
-  const [messages, setMessages] = useState([]); // Stores chat history
-  const [input, setInput] = useState(""); // Stores user input
-  const [loading, setLoading] = useState(false); // Manages loading state
+const ChatBox = () => {
+  const [messages, setMessages] = useState([
+    { text: 'Hi! How can I help you today?', type: 'bot' },
+    { text: 'Tell me about apples.', type: 'button', id: 'apple' },
+    { text: 'Tell me about bananas.', type: 'button', id: 'banana' },
+    { text: 'Tell me about grapes.', type: 'button', id: 'grape' },
+    { text: 'About us.', type: 'button', id: 'u' }
+  ]);
 
-  // Handles input change in the text field
-  const handleInputChange = (e) => {
-    setInput(e.target.value);
-  };
+  const [chat, setChat] = useState([]);
 
-  // Handles message sending logic
-  const handleSendMessage = async () => {
-    if (input.trim()) {
-      const userMessage = { role: "user", content: input }; // Structure for user message
-      setMessages([...messages, userMessage]); // Update state with user message
-
-      // Clear the input field
-      setInput("");
-      setLoading(true); // Start loading spinner
-
-      // Call your API here (keeping your API logic intact)
-      try {
-        const response = await axios({
-          url: "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyAVanAyDyrjpdoU7wOpQxXIXCH4Yg9N3-s",
-          method: "post",
-          data: { contents: [{ parts: [{ text: input }] }] },
-        });
-
-        const botResponse = response.data.candidates[0].content.parts[0].text;
-        const botMessage = { role: "bot", content: botResponse }; // Structure for bot message
-        setMessages([...messages, userMessage, botMessage]); // Add bot message to chat
-      } catch (error) {
-        console.error("Error fetching bot response:", error);
-      }
-
-      setLoading(false); // Stop loading spinner
+  const handleMessageClick = (id) => {
+    let reply = '';
+    switch (id) {
+      case 'apple':
+        reply = 'Apples are a popular fruit known for their crisp texture and sweet taste.';
+        break;
+      case 'banana':
+        reply = 'Bananas are a tropical fruit that are sweet and soft.';
+        break;
+      case 'grape':
+        reply = 'Grapes come in various colors and are known for their sweet taste.';
+        break;
+      case 'about':
+        reply = 'We are a fruit AI application that provides information about different fruits.';
+        break;
+      default:
+        reply = 'Sorry, I don\'t have information on that topic.';
     }
+    setChat([...chat, { text: `Tell me about ${id}s.`, type: 'user' }, { text: reply, type: 'bot' }]);
   };
 
   return (
-    <div className="chat-container-wrapper">
-      <div className="chatbot-container">
-        <div className="chat-header">
-          <h2>Chat</h2>
-        </div>
-
-        {/* Chat body to display chat messages */}
-        <div className="chat-body">
-          {messages.map((msg, index) => (
-            <div
+    <div className="chatbox">
+      <div className="chatbox-header">Chat</div>
+      <div className="chatbox-body">
+        {chat.map((msg, index) => (
+          <div key={index} className={`message ${msg.type}`}>
+            <div className="message-text">{msg.text}</div>
+          </div>
+        ))}
+      </div>
+      <div className="chatbox-body">
+        {messages.map((msg, index) =>
+          msg.type === 'button' ? (
+            <button
               key={index}
-              className={msg.role === "user" ? "user-message" : "bot-message"}
+              className="message-button"
+              onClick={() => handleMessageClick(msg.id)}
             >
-              {msg.content}
-            </div>
-          ))}
-          {loading && <div className="loading">Bot is typing...</div>}
-        </div>
-
-        {/* Chat footer to take input from user */}
-        <div className="chat-footer">
-          <input
-            type="text"
-            value={input}
-            onChange={handleInputChange}
-            placeholder="Type a message..."
-          />
-          <button onClick={handleSendMessage}>Send</button>
-        </div>
+              {msg.text}
+            </button>
+          ) : null
+        )}
       </div>
     </div>
   );
 };
 
-export default Chat;
+export default ChatBox;
