@@ -47,18 +47,22 @@ const Faq = () => {
   const handleUpdateFAQ = (e) => {
     e.preventDefault();
     if (newFAQ.question && newFAQ.answer && newFAQ.id) {
-      axios.put(`${API_URL}/${newFAQ.id}`, newFAQ) // Correct URL formation
+      axios.put(`${API_URL}${newFAQ.id}`, newFAQ) // Removed extra `/`
         .then(response => {
-          setFaqs(
-            faqs.map((faq) =>
-              faq._id === newFAQ.id
-                ? { ...response.data }
-                : faq
-            )
-          );
-          setIsEditing(null);
-          setNewFAQ({ question: "", answer: "", image: "", id: null });
-          setIsFormVisible(false);
+          if (response.status === 200) { // Check for successful update
+            setFaqs(
+              faqs.map((faq) =>
+                faq._id === newFAQ.id
+                  ? { ...response.data }
+                  : faq
+              )
+            );
+            setIsEditing(null);
+            setNewFAQ({ question: "", answer: "", image: "", id: null });
+            setIsFormVisible(false);
+          } else {
+            console.error("Error updating FAQ, status:", response.status);
+          }
         })
         .catch(error => console.error("Error updating FAQ:", error));
     } else {
@@ -68,9 +72,13 @@ const Faq = () => {
 
   const handleDeleteFAQ = (id) => {
     console.log("Deleting FAQ ID:", id); // Debugging log
-    axios.delete(`${API_URL}/${id}`) // Ensure correct URL formation
-      .then(() => {
-        setFaqs(faqs.filter((faq) => faq._id !== id)); // Filter by _id
+    axios.delete(`${API_URL}${id}`) // Removed extra `/`
+      .then(response => {
+        if (response.status === 200 || response.status === 204) { // Check for successful deletion
+          setFaqs(faqs.filter((faq) => faq._id !== id)); // Filter by _id
+        } else {
+          console.error("Error deleting FAQ, status:", response.status);
+        }
       })
       .catch(error => console.error("Error deleting FAQ:", error));
   };
